@@ -1,49 +1,62 @@
 import { SMURF_IS_FETCHING, SMURF_FETCH_SUCCESS, SMURF_FETCH_FAIL, ADD_NEW_SMURF, ERROR_MESSAGE} from "../actions/index";
 export const initialState = {
-    smurfs: [],
-    appIsLoading: false,
-    error: ""
-}
+    smurfs: [{
+          id:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+          name:'Poppa Smurf',
+          position:'Village Leader',
+          nickname: 'Pops',
+          description: 'Papa is the practical village leader and the father figure of 100 or so young Smurfs. He is easily identified by his red Smurf hat, pants, and a shortly-trimmed white beard and moustache.'
+        },
+        {
+          id:"JzdWIiOiIxMjM0NTY3ODkwIiwibmFtZ",
+          name:'Smurfette',
+          position:'Beautician',
+          nickname: 'Smurfette',
+          description: 'Smurfette\'s role in the village is that of any other smurf; chores, and helping out where she can, but for her specifically, she is often seen to be very active in organizing events.'
+        }],
+        appIsLoading: false,
+        error: ""
+};
 
+console.log(initialState)
 const reducer = (state, action) => {
     switch(action.type) {
         case(SMURF_IS_FETCHING):
         return({
             ...state,
             smurfs: state.smurfs,
-            isLoading: true
+            appIsLoading: true
         });
 
         case(SMURF_FETCH_SUCCESS):
         return ({
             ...state,
             smurfs: state.smurfs,
-            isLoading: false
+            appIsLoading: false
         });
 
         case(SMURF_FETCH_FAIL):
         return({
-            isLoading: false,
+            appIsLoading: false,
         });
 
         case(ADD_NEW_SMURF):
         return({
             ...state,
-            smurfs: ({
-                id: Date.now(),
-                name: "",
-                position: "",
-                nickname: "",
-                description: ""
-            }),
-            isLoading: false
+            smurfs: [
+                ...state.smurfs,
+                {
+                    id: Date.now(),
+                ...action.payload}],
+            appIsLoading: false,
+            error: "",
         });
 
         case(ERROR_MESSAGE):
         return({
             ...state,
         appIsLoading: false,
-        error: "Gargamel was unable to catch any Smurfs today"
+        error: action.payload
         });
 
         default:

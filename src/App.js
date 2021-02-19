@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import AddForm from './components/AddForm';
 import SmurfList from './components/SmurfList';
 import Header from './components/Header';
+import { connect } from "react-redux";
 
 import {fetchSmurfs} from "./actions/index"
 
@@ -17,17 +18,25 @@ class App extends Component {
         <Header />
 
         <main>
-          <SmurfList value={fetchSmurfs}/>
-          <AddForm/>
+          <SmurfList />
+          <AddForm />
         </main>
       </div>
     );
   };
 };
 
+// const mapStateToProps = state => {
+//   return {
+//     smurfs: state.smurfs,
+//     appIsLoading: state.appIsLoading,
+//     error: state.error
+//   }
+// }
 
-
-export default App;
+export default 
+// connect(mapStateToProps,{ fetchSmurfs }) 
+App;
 
 //Task List:
 //1. Connect the fetchSmurfs actions to the App component.
