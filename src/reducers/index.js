@@ -1,9 +1,54 @@
-
+import { SMURF_IS_FETCHING, SMURF_FETCH_SUCCESS, SMURF_FETCH_FAIL, ADD_NEW_SMURF, ERROR_MESSAGE} from "../actions/index";
 export const initialState = {
+    smurfs: [],
+    appIsLoading: false,
+    error: ""
 }
 
-const reducer = ()=>{
-}
+const reducer = (state, action) => {
+    console.log(initialState);
+    switch(action.type) {
+        case(SMURF_IS_FETCHING):
+        return({
+            ...state,
+            smurfs: state.smurfs,
+            appIsLoading: true
+        });
+
+        case(SMURF_FETCH_SUCCESS):
+        return ({
+            ...state,
+            smurfs: state.smurfs,
+            appIsLoading: false
+        });
+
+        case(SMURF_FETCH_FAIL):
+        return({
+            appIsLoading: false,
+        });
+
+        case(ADD_NEW_SMURF):
+        return({
+            ...state,
+            smurfs: ({
+                id: Date.now(),
+                name: "",
+                position: "",
+                nickname: "",
+                description: ""
+            })
+        });
+
+        case(ERROR_MESSAGE):
+        return({
+        appIsLoading: false,
+        error: "Gargamel was unable to catch any Smurfs today"
+        });
+
+        default:
+            return state;
+    };
+};
 
 export default reducer;
 
