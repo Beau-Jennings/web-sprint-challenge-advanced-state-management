@@ -6,25 +6,24 @@ export const initialState = {
 }
 
 const reducer = (state, action) => {
-    console.log(initialState);
     switch(action.type) {
         case(SMURF_IS_FETCHING):
         return({
             ...state,
             smurfs: state.smurfs,
-            appIsLoading: true
+            isLoading: true
         });
 
         case(SMURF_FETCH_SUCCESS):
         return ({
             ...state,
             smurfs: state.smurfs,
-            appIsLoading: false
+            isLoading: false
         });
 
         case(SMURF_FETCH_FAIL):
         return({
-            appIsLoading: false,
+            isLoading: false,
         });
 
         case(ADD_NEW_SMURF):
@@ -36,11 +35,13 @@ const reducer = (state, action) => {
                 position: "",
                 nickname: "",
                 description: ""
-            })
+            }),
+            isLoading: false
         });
 
         case(ERROR_MESSAGE):
         return({
+            ...state,
         appIsLoading: false,
         error: "Gargamel was unable to catch any Smurfs today"
         });
